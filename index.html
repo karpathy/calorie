@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Calorie Status</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+.container {
+    text-align: center;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.counter {
+    font-size: 48px;
+    margin-bottom: 20px;
+}
+
+#deficit-count {
+    font-size: 24px;
+}
+
+button {
+    margin: 5px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+#reset-button {
+    background-color: #ff6347;
+    color: white;
+}
+
+#exercise-button {
+    background-color: #4caf50;
+    color: white;
+}
+
+#eat-button {
+    background-color: #2196f3;
+    color: white;
+}
+</style>
+
+</head>
+<body>
+    <div class="container">
+        <h1>Calorie Status</h1>
+        <div class="counter">
+            <p id="calorie-count">0</p>
+            <p id="deficit-count">0</p>
+        </div>
+        <button id="reset-button">Reset</button>
+        <button id="exercise-button">-100 kcal</button>
+        <button id="eat-button">+100 kcal</button>
+    </div>
+
+<script type="text/javascript">
+
+// user configuration ------
+// these will count our calories burned at rest
+let calorieCount = 0;
+const hourlyCalorieBurn = 2000 / 24.0; // burned per hour
+// goal is to lose 500 kcal/day (i.e. ~1 lb/week)
+let desiredDeficitCount = 0;
+const hourlyCalorieTargetDeficit = 500 / 24.0;
+// --------------------------
+
+let lastUpdateTime = Date.now();
+
+function updateCalorieCount() {
+    const currentTime = Date.now();
+    const elapsedHours = (currentTime - lastUpdateTime) / (1000 * 60 * 60);
+    calorieCount -= elapsedHours * hourlyCalorieBurn;
+    desiredDeficitCount -= elapsedHours * hourlyCalorieTargetDeficit;
+    lastUpdateTime = currentTime;
+    document.getElementById('calorie-count').innerText = calorieCount.toFixed(2);
+    document.getElementById('deficit-count').innerText = "GOAL: " + desiredDeficitCount.toFixed(2);
+    let color = calorieCount < desiredDeficitCount ? 'green' : 'red'; // green if met, red otherwise
+    document.getElementById('deficit-count').style.color = color;
+}
+
+document.getElementById('reset-button').addEventListener('click', () => {
+    calorieCount = 0;
+    lastUpdateTime = Date.now();
+});
+
+document.getElementById('exercise-button').addEventListener('click', () => {
+    updateCalorieCount();
+    calorieCount -= 100;
+});
+
+document.getElementById('eat-button').addEventListener('click', () => {
+    updateCalorieCount();
+    calorieCount += 100;
+});
+
+setInterval(updateCalorieCount, 500); // update counter every 500ms
+</script>
+
+</body>
+</html>
