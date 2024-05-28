@@ -1,5 +1,7 @@
 # calorie
 
+![screenshot](screenshot.png)
+
 Useful weight-loss web app tool.
 
 You burn calories at a certain rate just by living - this is your base metabolic rate. For example for me that's roughly 2000 kcal/day. You can find [calculators](https://www.calculator.net/bmr-calculator.html) online. So, by default, your body will burn e.g. 2000 kcal/day. Then if you eat food you take in calories. And if you exercise you burn calories. If you are in a net deficit, you lose weight.
