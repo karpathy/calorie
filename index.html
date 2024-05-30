@@ -78,14 +78,14 @@ button {
 
 // user configuration ------
 // these will count our calories burned at rest
-let calorieCount = 0;
+let calorieCount = parseFloat(localStorage.getItem('calorieCount')) || 0;
 const hourlyCalorieBurn = 2000 / 24.0; // burned per hour
 // goal is to lose 500 kcal/day (i.e. ~1 lb/week)
-let desiredDeficitCount = 0;
+let desiredDeficitCount = parseFloat(localStorage.getItem('desiredDeficitCount')) || 0;
 const hourlyCalorieTargetDeficit = 500 / 24.0;
 // --------------------------
 
-let lastUpdateTime = Date.now();
+let lastUpdateTime = parseInt(localStorage.getItem('lastUpdateTime')) || Date.now();
 
 function updateCalorieCount() {
     const currentTime = Date.now();
@@ -97,22 +97,33 @@ function updateCalorieCount() {
     document.getElementById('deficit-count').innerText = "GOAL: " + desiredDeficitCount.toFixed(2);
     let color = calorieCount < desiredDeficitCount ? 'green' : 'red'; // green if met, red otherwise
     document.getElementById('deficit-count').style.color = color;
+
+    // store the updated values in local storage
+    localStorage.setItem('calorieCount', calorieCount);
+    localStorage.setItem('desiredDeficitCount', desiredDeficitCount);
+    localStorage.setItem('lastUpdateTime', lastUpdateTime.toString());
 }
 
 document.getElementById('reset-button').addEventListener('click', () => {
     calorieCount = 0;
-    desiredDeficitCount = 0; // reset the goal counter as well
+    desiredDeficitCount = 0;
     lastUpdateTime = Date.now();
+    localStorage.setItem('calorieCount', calorieCount);
+    localStorage.setItem('desiredDeficitCount', desiredDeficitCount);
+    localStorage.setItem('lastUpdateTime', lastUpdateTime.toString());
+    updateCalorieCount();
 });
 
 document.getElementById('exercise-button').addEventListener('click', () => {
     updateCalorieCount();
     calorieCount -= 100;
+    localStorage.setItem('calorieCount', calorieCount);
 });
 
 document.getElementById('eat-button').addEventListener('click', () => {
     updateCalorieCount();
     calorieCount += 100;
+    localStorage.setItem('calorieCount', calorieCount);
 });
 
 setInterval(updateCalorieCount, 500); // update counter every 500ms
