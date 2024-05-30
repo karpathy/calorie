@@ -101,6 +101,7 @@ function updateCalorieCount() {
 
 document.getElementById('reset-button').addEventListener('click', () => {
     calorieCount = 0;
+    desiredDeficitCount = 0; // reset the goal counter as well
     lastUpdateTime = Date.now();
 });
 
