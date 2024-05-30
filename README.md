@@ -8,7 +8,7 @@ You burn calories at a certain rate just by living - this is your base metabolic
 
 On top of that, you have a certain weight loss goal. For example for me that might be 500 kcal/day of deficit, so that every week you burn 7 * 500 = 3500 kcal, which is roughly 1 pound of fat.
 
-So the idea is to have two counters that simply show your current deficit next to your goal. When you eat, you press +100kcal button until you add all the calories you ate. For example when I eat a Big Mac, I pres +100kcal button 5 times. When you exercise, you do the opposite. So if I went to the gym and ran for 30 min, the treadmill is showing me that I burned about 400 kcal, so I press -400kcal button 4 times.
+So the idea is to have two counters that simply show your current deficit next to your goal. When you eat, you press +100kcal button until you add all the calories you ate. For example when I eat a Big Mac, I press +100kcal button 5 times. When you exercise, you do the opposite. So if I went to the gym and ran for 30 min, the treadmill is showing me that I burned about 400 kcal, so I press -100kcal button 4 times.
 
 I leave this little web app always open at the corner of my screen. At any point in time it shows me how much food I am allowed to eat to stay on my deficit goal. Alternatively if I know I am about to eat 1000 kcal, it shows me how many calories I have to go run for in order to not go over my goal.
 
