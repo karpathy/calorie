@@ -2,7 +2,7 @@
 
 ![screenshot](screenshot.png)
 
-Useful weight-loss web app tool.
+Calorie deficit tracking web app.
 
 You burn calories at a certain rate just by living - this is your base metabolic rate. For example for me that's roughly 2000 kcal/day. You can find [calculators](https://www.calculator.net/bmr-calculator.html) online. So, by default, your body will burn e.g. 2000 kcal/day. Then if you eat food you take in calories. And if you exercise you burn calories. If you are in a net deficit, you lose weight.
 
@@ -12,8 +12,9 @@ So the idea is to have two counters that simply show your current deficit next t
 
 I leave this little web app always open at the corner of my screen. At any point in time it shows me how much food I am allowed to eat to stay on my deficit goal. Alternatively if I know I am about to eat 1000 kcal, it shows me how many calories I have to go run for in order to not go over my goal.
 
-That's it!
-Depending on your base metabolic rate, go into [index.html](index.html) and edit the variable
+Losing weight then becomes as simple as making sure that your number stays green (i.e. your deficit is inline with your goal) and does not turn red.
+
+That's it! Depending on your base metabolic rate, go into [index.html](index.html) and edit the variable
 
 ```javascript
 const hourlyCalorieBurn = 2000 / 24.0; // burned per hour
@@ -25,7 +26,7 @@ Change it from 2000 to whatever it is for you. Then decide what your deficit goa
 const hourlyCalorieTargetDeficit = 500 / 24.0; // burned per hour
 ```
 
-Simply open up index.html in your browser and you are good to go. This works nicely for me.
+Simply open up index.html in your browser and you are good to go.
 
 ### License
 
