@@ -59,12 +59,41 @@ button {
     background-color: #2196f3;
     color: white;
 }
+
+input[type="number"] {
+    margin: 10px 0;
+    padding: 10px;
+    font-size: 16px;
+    width: calc(100% - 22px);
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+label {
+    font-size: 16px;
+    color: #333;
+}
+
+input[type="number"]:focus {
+    border-color: #4caf50;
+    outline: none;
+    box-shadow: 0 0 5px rgba(76, 175, 80, 0.5);
+}
 </style>
 
 </head>
 <body>
     <div class="container">
         <h1>Calorie Status</h1>
+        <div>
+            <label for="bmr">Base Metabolic Rate (kcal/day): </label>
+            <input type="number" id="bmr" value="2000">
+        </div>
+        <div>
+            <label for="deficit">Daily Deficit Goal (kcal): </label>
+            <input type="number" id="deficit" value="500">
+        </div>
         <div class="counter">
             <p id="calorie-count">0</p>
             <p id="deficit-count">0</p>
@@ -75,33 +104,35 @@ button {
     </div>
 
 <script type="text/javascript">
-
-// user configuration ------
-// these will count our calories burned at rest
 let calorieCount = 0;
-const hourlyCalorieBurn = 2000 / 24.0; // burned per hour
-// goal is to lose 500 kcal/day (i.e. ~1 lb/week)
 let desiredDeficitCount = 0;
-const hourlyCalorieTargetDeficit = 500 / 24.0;
-// --------------------------
-
 let lastUpdateTime = Date.now();
+
+function getBMR() {
+    return parseFloat(document.getElementById('bmr').value);
+}
+
+function getDeficitGoal() {
+    return parseFloat(document.getElementById('deficit').value);
+}
 
 function updateCalorieCount() {
     const currentTime = Date.now();
     const elapsedHours = (currentTime - lastUpdateTime) / (1000 * 60 * 60);
+    const hourlyCalorieBurn = getBMR() / 24.0;
+    const hourlyCalorieTargetDeficit = getDeficitGoal() / 24.0;
     calorieCount -= elapsedHours * hourlyCalorieBurn;
     desiredDeficitCount -= elapsedHours * hourlyCalorieTargetDeficit;
     lastUpdateTime = currentTime;
     document.getElementById('calorie-count').innerText = calorieCount.toFixed(2);
     document.getElementById('deficit-count').innerText = "GOAL: " + desiredDeficitCount.toFixed(2);
-    let color = calorieCount < desiredDeficitCount ? 'green' : 'red'; // green if met, red otherwise
+    let color = calorieCount < desiredDeficitCount ? 'green' : 'red';
     document.getElementById('deficit-count').style.color = color;
 }
 
 document.getElementById('reset-button').addEventListener('click', () => {
     calorieCount = 0;
-    desiredDeficitCount = 0; // reset the goal counter as well
+    desiredDeficitCount = 0;
     lastUpdateTime = Date.now();
 });
 
@@ -115,7 +146,10 @@ document.getElementById('eat-button').addEventListener('click', () => {
     calorieCount += 100;
 });
 
-setInterval(updateCalorieCount, 500); // update counter every 500ms
+document.getElementById('bmr').addEventListener('input', updateCalorieCount);
+document.getElementById('deficit').addEventListener('input', updateCalorieCount);
+
+setInterval(updateCalorieCount, 500);
 </script>
 
 </body>
